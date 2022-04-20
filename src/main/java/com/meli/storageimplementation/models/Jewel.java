@@ -1,9 +1,6 @@
 package com.meli.storageimplementation.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -14,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
+@Builder
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,9 +21,9 @@ public class Jewel {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false)
-    UUID id;
-    String material;
-    BigDecimal weight;
-    Integer karat;
+    private UUID id;
+    private String material;
+    private BigDecimal weight;
+    private Integer karat;
 
 }
