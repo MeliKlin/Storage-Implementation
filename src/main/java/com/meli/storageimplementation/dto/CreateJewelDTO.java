@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Getter
@@ -16,12 +18,15 @@ import java.math.BigDecimal;
 public class CreateJewelDTO {
 
     @JsonProperty("material")
+    @NotEmpty(message = "Jewel material is required.")
     String material;
 
     @JsonProperty("weight")
+    @NotNull(message = "Jewel weight is required.")
     BigDecimal weight;
 
     @JsonProperty("karat")
+    @NotNull(message = "Jewel karat is required.")
     Integer karat;
 
     public Jewel mountJewel() {

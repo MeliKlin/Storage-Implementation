@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -22,7 +23,7 @@ public class JewelController {
 
     @PostMapping
     public ResponseEntity<Void> createJewel(
-            @RequestBody CreateJewelDTO createJewelDTO,
+            @Valid @RequestBody CreateJewelDTO createJewelDTO,
             UriComponentsBuilder uriBuilder
     ) {
         Jewel jewel = jewelService.createJewel(createJewelDTO.mountJewel());
