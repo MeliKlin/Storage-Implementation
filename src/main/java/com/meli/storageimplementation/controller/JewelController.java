@@ -11,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -38,6 +39,12 @@ public class JewelController {
         Jewel jewel = jewelService.findJewelById(id);
 
         return ResponseEntity.ok(jewel);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Jewel>> getJewels() {
+        List<Jewel> jewels = jewelService.listJewels();
+        return ResponseEntity.ok(jewels);
     }
 
 }

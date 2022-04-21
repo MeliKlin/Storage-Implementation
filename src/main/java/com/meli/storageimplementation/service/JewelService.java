@@ -5,6 +5,7 @@ import com.meli.storageimplementation.models.Jewel;
 import com.meli.storageimplementation.repository.JewelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,6 +29,10 @@ public class JewelService {
         }
 
         throw new JewelNotFoundException("Jewel does not exists");
+    }
+
+    public List<Jewel> listJewels() {
+        return jewelRepository.findAll();
     }
 
 }
