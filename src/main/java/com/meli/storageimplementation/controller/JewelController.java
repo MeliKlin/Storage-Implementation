@@ -1,6 +1,7 @@
 package com.meli.storageimplementation.controller;
 
 import com.meli.storageimplementation.dto.CreateOrUpdateJewelDTO;
+import com.meli.storageimplementation.errors.IdIsRequiredException;
 import com.meli.storageimplementation.errors.JewelNotFoundException;
 import com.meli.storageimplementation.models.Jewel;
 import com.meli.storageimplementation.service.JewelService;
@@ -15,24 +16,24 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/jewels")
+@RequestMapping("/api/v1")
 @AllArgsConstructor
 public class JewelController {
 
     JewelService jewelService;
 
-    @PostMapping
+    @PostMapping("/joia/inserir")
     public ResponseEntity<Void> createJewel(
             @Valid @RequestBody CreateOrUpdateJewelDTO createOrUpdateJewelDTO,
             UriComponentsBuilder uriBuilder
     ) {
         Jewel jewel = jewelService.createOrUpdateJewel(createOrUpdateJewelDTO.mountJewel());
-        URI uri = uriBuilder.path("/api/v1/jewels/{id}").buildAndExpand(jewel.getId()).toUri();
+        URI uri = uriBuilder.path("/api/v1/joia/buscar/{id}").buildAndExpand(jewel.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/joia/buscar/{id}")
     public ResponseEntity<Jewel> getJewel(
             @PathVariable UUID id
     ) throws JewelNotFoundException {
@@ -41,30 +42,36 @@ public class JewelController {
         return ResponseEntity.ok(jewel);
     }
 
-    @GetMapping
+    @GetMapping("/joias")
     public ResponseEntity<List<Jewel>> getJewels() {
         List<Jewel> jewels = jewelService.listJewels();
         return ResponseEntity.ok(jewels);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/joia/atualizar")
     public ResponseEntity<Void> updateJewel(
-            @PathVariable UUID id,
+            @RequestParam(required = false) UUID cod_identificacao,
             @Valid @RequestBody CreateOrUpdateJewelDTO updateJewelDTO
-    ) throws JewelNotFoundException {
-        jewelService.findJewelById(id);
+    ) throws JewelNotFoundException, IdIsRequiredException {
+        if (cod_identificacao == null) {
+            throw new IdIsRequiredException("cod_identificacao is required.");
+        }
+        jewelService.findJewelById(cod_identificacao);
 
         Jewel jewel = updateJewelDTO.mountJewel();
-        jewel.setId(id);
+        jewel.setId(cod_identificacao);
         jewelService.createOrUpdateJewel(jewel);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/joia/excluir")
     public ResponseEntity<Void> deleteJewel(
-            @PathVariable UUID id
-    ) throws JewelNotFoundException {
-        jewelService.deleteJewel(id);
+            @RequestParam(required = false) UUID cod_identificacao
+    ) throws JewelNotFoundException, IdIsRequiredException {
+        if (cod_identificacao == null) {
+            throw new IdIsRequiredException("cod_identificacao is required.");
+        }
+        jewelService.deleteJewel(cod_identificacao);
         return ResponseEntity.noContent().build();
     }
 }

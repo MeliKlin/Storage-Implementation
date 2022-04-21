@@ -1,5 +1,6 @@
 package com.meli.storageimplementation.controller.advisor;
 
+import com.meli.storageimplementation.errors.IdIsRequiredException;
 import com.meli.storageimplementation.errors.JewelNotFoundException;
 import com.meli.storageimplementation.errors.ValidationErrorDTO;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -30,6 +31,13 @@ public class ValidateExceptionController {
     @ExceptionHandler(JewelNotFoundException.class)
     protected ResponseEntity<Void> handleJewelNotFoundException(JewelNotFoundException exception) {
         return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(IdIsRequiredException.class)
+    protected ResponseEntity<ValidationErrorDTO> handleIdIsRequiredException(IdIsRequiredException exception) {
+        List<String> errors = List.of(new String[]{exception.getMessage()});
+        ValidationErrorDTO response = new ValidationErrorDTO("Something went wrong with cod_identificacao", errors);
+        return ResponseEntity.badRequest().body(response);
     }
 
 }
