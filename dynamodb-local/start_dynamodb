@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "--------------------------------------------"
+echo "Carregando DynamoDB Local - Standard Region"
+echo "--------------------------------------------"
+cd ${PWD}
+./startdyn &
+sleep 5
+./create-table
+sleep 5
+echo "--------------------------------------------"
