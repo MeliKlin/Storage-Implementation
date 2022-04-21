@@ -23,6 +23,8 @@ public class TestCaseService {
         return testCaseRepository.list();
     }
 
+    public List<TestCase> listTestCases(String startDate) { return  testCaseRepository.listGreaterThanArgDate(startDate); }
+
     public TestCase findTestCase(String id) throws TestCaseDoesNotExistsException {
         Optional<TestCase> testCase = Optional.ofNullable(testCaseRepository.find(id));
         if (testCase.isPresent()) {

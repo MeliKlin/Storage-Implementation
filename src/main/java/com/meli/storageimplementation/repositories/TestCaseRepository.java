@@ -2,10 +2,12 @@ package com.meli.storageimplementation.repositories;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.meli.storageimplementation.models.TestCase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -22,6 +24,16 @@ public class TestCaseRepository implements ApplicationRepository<TestCase, Strin
     @Override
     public List<TestCase> list() {
         return dynamoDBMapper.scan(TestCase.class, new DynamoDBScanExpression());
+    }
+
+    public List<TestCase> listGreaterThanArgDate(String startDate) {
+        HashMap<String, AttributeValue> eav = new HashMap<>();
+        eav.put(":v", new AttributeValue().withS(startDate));
+
+        return dynamoDBMapper.scan(TestCase.class, new DynamoDBScanExpression()
+                .withFilterExpression("last_update > :v")
+                .withExpressionAttributeValues(eav)
+        );
     }
 
     @Override
