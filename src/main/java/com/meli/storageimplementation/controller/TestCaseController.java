@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -35,6 +34,13 @@ public class TestCaseController {
             @PathVariable String id
     ) throws TestCaseDoesNotExistsException {
         return testCaseService.findTestCase(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTestCase(
+            @PathVariable String id
+    ) throws TestCaseDoesNotExistsException {
+        testCaseService.deleteTestCase(id);
     }
 
 }

@@ -32,5 +32,10 @@ public class TestCaseService {
         throw new TestCaseDoesNotExistsException("Test case does not exists.");
     }
 
+    public void deleteTestCase(String id) throws TestCaseDoesNotExistsException {
+        TestCase testCase = findTestCase(id);
+
+        testCaseRepository.delete(testCase);
+    }
+
 }
-;
