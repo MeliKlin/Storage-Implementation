@@ -1,5 +1,6 @@
 package com.meli.storageimplementation.controller.advisor;
 
+import com.meli.storageimplementation.errors.JewelNotFoundException;
 import com.meli.storageimplementation.errors.ValidationErrorDTO;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,11 @@ public class ValidateExceptionController {
 
         ValidationErrorDTO response = new ValidationErrorDTO("Something went wrong, check all fields.", errors);
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(JewelNotFoundException.class)
+    protected ResponseEntity<Void> handleJewelNotFoundException(JewelNotFoundException exception) {
+        return ResponseEntity.notFound().build();
     }
 
 }

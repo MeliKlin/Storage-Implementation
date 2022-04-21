@@ -1,8 +1,12 @@
 package com.meli.storageimplementation.service;
 
+import com.meli.storageimplementation.errors.JewelNotFoundException;
 import com.meli.storageimplementation.models.Jewel;
 import com.meli.storageimplementation.repository.JewelRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class JewelService {
@@ -15,6 +19,15 @@ public class JewelService {
 
     public Jewel createJewel(Jewel jewel) {
         return jewelRepository.save(jewel);
+    }
+
+    public Jewel findJewelById(UUID jewelId) throws JewelNotFoundException {
+        Optional<Jewel> jewel = jewelRepository.findById(jewelId);
+        if (jewel.isPresent()) {
+            return jewel.get();
+        }
+
+        throw new JewelNotFoundException("Jewel does not exists");
     }
 
 }
