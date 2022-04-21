@@ -59,4 +59,12 @@ public class JewelController {
         jewelService.createOrUpdateJewel(jewel);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteJewel(
+            @PathVariable UUID id
+    ) throws JewelNotFoundException {
+        jewelService.deleteJewel(id);
+        return ResponseEntity.noContent().build();
+    }
 }

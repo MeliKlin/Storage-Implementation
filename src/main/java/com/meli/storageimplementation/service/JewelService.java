@@ -35,4 +35,10 @@ public class JewelService {
         return jewelRepository.findAll();
     }
 
+    public void deleteJewel(UUID id) throws JewelNotFoundException {
+        Jewel jewel = findJewelById(id);
+
+        jewelRepository.delete(jewel);
+    }
+
 }
