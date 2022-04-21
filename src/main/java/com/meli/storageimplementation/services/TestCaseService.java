@@ -5,6 +5,8 @@ import com.meli.storageimplementation.repositories.TestCaseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TestCaseService {
@@ -13,6 +15,10 @@ public class TestCaseService {
 
     public void createTestCase(TestCase testCase) {
         testCaseRepository.save(testCase);
+    }
+
+    public List<TestCase> listTestCases() {
+        return testCaseRepository.list();
     }
 
 }
