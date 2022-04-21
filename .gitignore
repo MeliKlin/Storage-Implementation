@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### DynamoDB database ###
+dynamodb-local/shared-local-instance.db
