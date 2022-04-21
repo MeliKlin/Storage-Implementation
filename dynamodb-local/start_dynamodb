@@ -3,7 +3,7 @@
 echo "--------------------------------------------"
 echo "Carregando DynamoDB Local - Standard Region"
 echo "--------------------------------------------"
-cd ${PWD}
+cd ${PWD}/dynamodb-local
 ./startdyn &
 sleep 5
 ./create-table

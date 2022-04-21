@@ -1,5 +1,5 @@
 {
-    "TableName": "states",
+    "TableName": "test_cases",
     "KeySchema": [
       { "AttributeName": "id", "KeyType": "HASH" }
     ],
