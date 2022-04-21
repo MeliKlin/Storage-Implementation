@@ -18,7 +18,7 @@ public class JewelService {
         this.jewelRepository = jewelRepository;
     }
 
-    public Jewel createJewel(Jewel jewel) {
+    public Jewel createOrUpdateJewel(Jewel jewel) {
         return jewelRepository.save(jewel);
     }
 

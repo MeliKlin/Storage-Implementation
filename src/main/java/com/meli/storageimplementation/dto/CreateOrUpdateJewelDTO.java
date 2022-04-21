@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateJewelDTO {
+public class CreateOrUpdateJewelDTO {
 
     @JsonProperty("material")
     @NotEmpty(message = "Jewel material is required.")
