@@ -37,8 +37,13 @@ public class TutorialController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Tutorial>> listTutorials() throws JsonProcessingException {
-        return ResponseEntity.ok(tutorialService.listTutorials());
+    public ResponseEntity<List<Tutorial>> listTutorials(
+            @RequestParam(required = false) String title
+    ) throws JsonProcessingException {
+        if (title == null) {
+            return ResponseEntity.ok(tutorialService.listTutorials());
+        }
+        return ResponseEntity.ok(tutorialService.listByTitle(title));
     }
 
     @GetMapping("/{id}")

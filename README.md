@@ -39,6 +39,4 @@ Excluir um tutorial por id.
 - DELETE /api/tutorials/id 
 
 GET /api/tutorials/published Buscar todos os tutoriais publicados.
-GET /api/tutorials?title=Spring Buscar todos os tutoriais que tenham a
-
-palavra “Spring” no título.
+GET /api/tutorials?title=Spring Buscar todos os tutoriais que tenham a palavra “Spring” no título.

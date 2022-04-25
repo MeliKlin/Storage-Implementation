@@ -64,4 +64,7 @@ public class TutorialService {
         return listTutorials().stream().filter(Tutorial::isPublished).collect(Collectors.toList());
     }
 
+    public List<Tutorial> listByTitle(String title) throws JsonProcessingException {
+        return listTutorials().stream().filter(t -> t.getTitle().contains(title)).collect(Collectors.toList());
+    }
 }
