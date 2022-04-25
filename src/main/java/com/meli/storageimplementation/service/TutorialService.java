@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.storageimplementation.dto.CreateTutorialDTO;
 import com.meli.storageimplementation.entities.Tutorial;
+import com.meli.storageimplementation.error.TutorialNotFoundException;
 import com.meli.storageimplementation.repository.TutorialRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,11 @@ public class TutorialService {
         return tutorials;
     }
 
-    public Tutorial findTutorialById(UUID id) throws JsonProcessingException {
+    public Tutorial findTutorialById(UUID id) throws JsonProcessingException, TutorialNotFoundException {
         String tutorialRawData = tutorialRepository.findById(id.toString());
+        if (tutorialRawData == null) {
+            throw new TutorialNotFoundException("Tutorial does not exists");
+        }
         return objectMapper.readValue(tutorialRawData, Tutorial.class);
     }
 

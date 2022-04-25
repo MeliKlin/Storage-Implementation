@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.storageimplementation.dto.CreateTutorialDTO;
 import com.meli.storageimplementation.entities.Tutorial;
-import com.meli.storageimplementation.repository.TutorialRepository;
+import com.meli.storageimplementation.error.TutorialNotFoundException;
 import com.meli.storageimplementation.service.TutorialService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +44,7 @@ public class TutorialController {
     @GetMapping("/{id}")
     public ResponseEntity<Tutorial> findTutorial(
             @PathVariable UUID id
-    ) throws JsonProcessingException {
+    ) throws JsonProcessingException, TutorialNotFoundException {
         return ResponseEntity.ok(tutorialService.findTutorialById(id));
     }
 

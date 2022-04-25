@@ -1,5 +1,7 @@
 package com.meli.storageimplementation.controller.advisor;
 
+import com.meli.storageimplementation.error.ErrorDTO;
+import com.meli.storageimplementation.error.TutorialNotFoundException;
 import com.meli.storageimplementation.error.ValidationErrorDTO;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,15 @@ public class HandleExceptionController {
         errorResponse.setErrors(errors);
 
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ExceptionHandler(value = {TutorialNotFoundException.class})
+    protected ResponseEntity<ErrorDTO> handleExceptions(Exception e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Something went wrong");
+        errorDTO.setMessage(e.getMessage());
+
+        return ResponseEntity.badRequest().body(errorDTO);
     }
 
 }
