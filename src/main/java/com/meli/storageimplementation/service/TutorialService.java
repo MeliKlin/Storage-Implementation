@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -57,6 +58,10 @@ public class TutorialService {
             throw new TutorialNotFoundException("Tutorial does not exists");
         }
         tutorialRepository.delete(id.toString());
+    }
+
+    public List<Tutorial> listPublished() throws JsonProcessingException {
+        return listTutorials().stream().filter(Tutorial::isPublished).collect(Collectors.toList());
     }
 
 }

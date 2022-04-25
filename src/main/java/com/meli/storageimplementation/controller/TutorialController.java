@@ -48,6 +48,11 @@ public class TutorialController {
         return ResponseEntity.ok(tutorialService.findTutorialById(id));
     }
 
+    @GetMapping("/published")
+    public ResponseEntity<List<Tutorial>> findPublished() throws JsonProcessingException {
+        return ResponseEntity.ok(tutorialService.listPublished());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTutorial(
             @PathVariable UUID id,
