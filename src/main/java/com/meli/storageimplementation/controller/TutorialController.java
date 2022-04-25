@@ -21,7 +21,6 @@ import java.util.UUID;
 @RequestMapping("/api/tutorials")
 public class TutorialController {
 
-    TutorialRepository tutorialRepository;
     TutorialService tutorialService;
     ObjectMapper objectMapper;
 
@@ -32,7 +31,7 @@ public class TutorialController {
     ) throws JsonProcessingException {
         UUID id = UUID.randomUUID();
 
-        tutorialRepository.set(id.toString(), objectMapper.writeValueAsString(createTutorialDTO));
+        tutorialService.createTutorial(id, createTutorialDTO);
         URI uri = uriBuilder.path("/api/tutorials/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }

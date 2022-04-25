@@ -2,6 +2,7 @@ package com.meli.storageimplementation.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meli.storageimplementation.dto.CreateTutorialDTO;
 import com.meli.storageimplementation.entities.Tutorial;
 import com.meli.storageimplementation.repository.TutorialRepository;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,10 @@ public class TutorialService {
 
     TutorialRepository tutorialRepository;
     ObjectMapper objectMapper;
+
+    public void createTutorial(UUID id, CreateTutorialDTO tutorial) throws JsonProcessingException {
+        tutorialRepository.set(id.toString(), objectMapper.writeValueAsString(tutorial));
+    }
 
     public List<Tutorial> listTutorials() throws JsonProcessingException {
         List<Tutorial> tutorials = new ArrayList<>();
