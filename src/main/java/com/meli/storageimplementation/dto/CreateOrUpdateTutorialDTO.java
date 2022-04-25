@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter @Setter
 @NoArgsConstructor
-public class CreateTutorialDTO {
+public class CreateOrUpdateTutorialDTO {
 
     @NotEmpty(message = "Campo tutorial não pode estar vazio.")
     private String title;

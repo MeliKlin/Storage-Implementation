@@ -2,7 +2,7 @@ package com.meli.storageimplementation.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.storageimplementation.dto.CreateTutorialDTO;
+import com.meli.storageimplementation.dto.CreateOrUpdateTutorialDTO;
 import com.meli.storageimplementation.entities.Tutorial;
 import com.meli.storageimplementation.error.TutorialNotFoundException;
 import com.meli.storageimplementation.service.TutorialService;
@@ -26,12 +26,12 @@ public class TutorialController {
 
     @PostMapping
     public ResponseEntity<Void> createTutorial(
-            @Valid @RequestBody CreateTutorialDTO createTutorialDTO,
+            @Valid @RequestBody CreateOrUpdateTutorialDTO createOrUpdateTutorialDTO,
             UriComponentsBuilder uriBuilder
     ) throws JsonProcessingException {
         UUID id = UUID.randomUUID();
 
-        tutorialService.createTutorial(id, createTutorialDTO);
+        tutorialService.saveTutorial(id, createOrUpdateTutorialDTO);
         URI uri = uriBuilder.path("/api/tutorials/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -46,6 +46,18 @@ public class TutorialController {
             @PathVariable UUID id
     ) throws JsonProcessingException, TutorialNotFoundException {
         return ResponseEntity.ok(tutorialService.findTutorialById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateTutorial(
+            @PathVariable UUID id,
+            @Valid @RequestBody CreateOrUpdateTutorialDTO updateTutorialDTO,
+            UriComponentsBuilder uriBuilder
+    ) throws TutorialNotFoundException, JsonProcessingException {
+        tutorialService.updateTutorial(id, updateTutorialDTO);
+        URI uri = uriBuilder.path("/api/tutorials/{id}").buildAndExpand(id).toUri();
+
+        return ResponseEntity.noContent().location(uri).build();
     }
 
 }
