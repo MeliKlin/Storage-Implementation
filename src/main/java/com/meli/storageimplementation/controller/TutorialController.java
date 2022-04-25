@@ -60,4 +60,12 @@ public class TutorialController {
         return ResponseEntity.noContent().location(uri).build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTutorial(
+            @PathVariable UUID id
+    ) throws TutorialNotFoundException, JsonProcessingException {
+        tutorialService.deleteTutorial(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

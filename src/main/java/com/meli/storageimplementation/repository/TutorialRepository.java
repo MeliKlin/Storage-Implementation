@@ -24,4 +24,8 @@ public class TutorialRepository {
         return jedis.hget("tutorials", id);
     }
 
+    public void delete(String key) {
+        jedis.hdel("tutorials", key);
+    }
+
 }

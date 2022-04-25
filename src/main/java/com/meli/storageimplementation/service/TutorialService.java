@@ -51,4 +51,12 @@ public class TutorialService {
         saveTutorial(id, updateTutorialDTO);
     }
 
+    public void deleteTutorial(UUID id) throws JsonProcessingException, TutorialNotFoundException {
+        Optional<Tutorial> tutorial = listTutorials().stream().filter(t -> t.getId().equals(id)).findFirst();
+        if (tutorial.isEmpty()) {
+            throw new TutorialNotFoundException("Tutorial does not exists");
+        }
+        tutorialRepository.delete(id.toString());
+    }
+
 }
